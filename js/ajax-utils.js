@@ -7,56 +7,82 @@ const API_KEY = "d24bddfd51b16745150279d26cf2f1bd50d633f6";
 const current_date = new Date();
 const API_URL = `https://api.nomics.com/v1/exchange-rates/history?key=${API_KEY}&currency=BTC&start=2021-08-19T00%3A00%3A00Z&end=${current_date}`
 
-function ajaxReq(Method, reqUrl, body, headers){
-    if (Method === "GET") {
-        var xhr = new XMLHttpRequest();
-        // use fake rest api `https://reqres.in/`, below url get list of users
-        xhr.open('GET', reqUrl);
-        // convert XMLHttpRequest results to 'json' bydefault
-        xhr.responseType = 'json';
 
-        xhr.onload = () => {
-            let results = xhr.response;
-            console.log('results:', results);
+// function ajaxReq(Method, reqUrl, body, headers){
+//     if (Method === "GET") {
+//         var xhr = new XMLHttpRequest();
+//         // open a GET req
+//         xhr.open('GET', reqUrl);
+//         // convert XMLHttpRequest results to 'json' bydefault
+//         xhr.responseType = 'json';
 
-            //convert string data to json/javascript object - ommit by using xhe.responseType = 'json'
-            // const jsonData = JSON.parse(results);
-            // console.log('jsonData:', jsonData);
-        }
-        xhr.send();
-    }
-    else if (Method === "POST") {
-        const postData = body;
+//         xhr.onload = () => {
+//             let results = xhr.response;
+//             console.log('results:', results);
 
-        var xhr = new XMLHttpRequest();
-        // use fake rest api `https://reqres.in/`, below url get list of users
-        xhr.open('POST', reqUrl);
+//             //convert string data to json/javascript object - ommit by using xhe.responseType = 'json'
+//             // const jsonData = JSON.parse(results);
+//             // console.log('jsonData:', jsonData);
+//         }
+//         xhr.send();
+//     }
+//     else if (Method === "POST") {
+//         const postData = body;
 
-        // convert XMLHttpRequest results to 'json' bydefault
-        // xhr.responseType = 'json';
-        xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+//         var xhr = new XMLHttpRequest();
+//         // use fake rest api `https://reqres.in/`, below url get list of users
+//         xhr.open('POST', reqUrl);
 
-        xhr.onload = function () {
-            var results = JSON.parse(xhr.responseText);
-            console.log(results);
+//         // convert XMLHttpRequest results to 'json' bydefault
+//         // xhr.responseType = 'json';
+//         xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+
+//         xhr.onload = function () {
+//             var results = JSON.parse(xhr.responseText);
+//             console.log(results);
+//         };
+
+//         xhr.send((JSON.stringify(postData)));
+//     }
+//     else {
+//         alert("Error: Request Method not allowed");
+//     }
+// }
+
+ajaxReq = (method, url, data) => {
+    return new Promise(function (resolve, reject) {
+        let request = new XMLHttpRequest();
+        request.responseType = 'json';
+        request.onreadystatechange = function () {
+            if (request.readyState === XMLHttpRequest.DONE) {
+                if (request.status === 200) {
+                    resolve(request.response);
+                } else {
+                    reject(Error(request.status));
+                }
+            }
         };
-
-        xhr.send((JSON.stringify(postData)));
-    }
-    else {
-        alert("Error: Request Method not allowed");
-    }
+        request.onerror = function () {
+            reject(Error("Network Error"));
+        };
+        request.open(method, url, true);
+        request.send(data);
+    });
 }
 
 fn_getData = () => {
     console.log('getButton clicked - in fn_getData');
-    ajaxReq("GET", API_URL, {}, {})
+    ajaxReq("GET", API_URL, {}).then((res) => {
+        console.log(res);
+    })
 }
 
 // define function to post/send data
 fn_postData = () => {
     console.log('postButton clicked - in fn_postData');
-    ajaxReq("POST", API_URL, {}, {})
+    ajaxReq("POST", API_URL, {}).then((res) => {
+        console.log(res);
+    })
 }
 
 // add event listener to button
