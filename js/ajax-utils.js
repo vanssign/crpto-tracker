@@ -1,12 +1,8 @@
 // get buttons from html/DOM
 const getButton = document.getElementById('getButton');
-const postButton = document.getElementById('postButton');
 
 // API configs
 const API_KEY = "d24bddfd51b16745150279d26cf2f1bd50d633f6";
-
-
-const current_date = new Date();
 
 //promise based ajax (similar to fetch api)
 ajaxReq = (method, url, data) => {
@@ -43,16 +39,19 @@ fn_getData = (currency, duration, endDate) => {
     const startDate = new Date(endDate);
 
     //duration based endDate generation
-    if (duration == 1) {
+    if (duration == "1D") {
         startDate.setDate(startDate.getDate() - 1);
     }
-    else if (duration == 30) {
+    else if (duration == "1W") {
+        startDate.setDate(startDate.getDate() - 7);
+    }
+    else if (duration == "1M") {
         startDate.setMonth(startDate.getMonth() - 1);
     }
-    else if (duration == 365) {
+    else if (duration == "1Y") {
         startDate.setFullYear(startDate.getFullYear() - 1);
     }
-    else if (duration == 5 * 365) {
+    else if (duration == "5Y") {
         startDate.setFullYear(startDate.getFullYear() - 5);
     }
 
@@ -63,9 +62,9 @@ fn_getData = (currency, duration, endDate) => {
         let xLabels = [];
         for (let i = 0; i < res.length; i++) {
             yLabels[i] = parseInt(res[i].rate);
-            xLabels[i] = res[i].timestamp;
+            xLabels[i] = res[i].timestamp.substring(0,10);
         }
-        chartUpdate(xLabels,yLabels,currency);
+        chartUpdate(xLabels, yLabels, currency);
     })
 }
 
@@ -78,6 +77,11 @@ fn_postData = () => {
     })
 }
 
+//event listeners
+function getData() {
+    fn_getData(document.getElementById('currencyCode').value,
+        document.getElementById('duration').value, new Date())
+}
+
 // add event listener to button
-getButton.addEventListener('click', fn_getData("BTC", 30, new Date()));
-postButton.addEventListener('click', fn_postData);
+getButton.addEventListener('click', getData);

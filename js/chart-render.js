@@ -22,7 +22,4 @@ function chartUpdate(xLabels,yLabels,currency){
     myChart.update();
 }
 
-// console.log(xLabels);
-// console.log(yLabels);
-
 console.log(myChart)

@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects</title>
 </head>
+
 <body>
+
+    <select name="currencyCode" id="currencyCode">
+        <option value="BTC">Bitcoin</option>
+        <option value="ETH">Ethereum</option>
+    </select>
+
+    <select name="duration" id="duration">
+        <option value="1D">1 Day</option>
+        <option value="1W">1 Week</option>
+        <option value="1M">1 Month</option>
+        <option value="1Y">1 Year</option>
+        <option value="5Y">5 years</option>
+    </select>
+
     <button id="getButton">GET</button>
-    <button id="postButton">POST</button>
     <canvas id="myChart" width="400" height="400"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/ajax-utils.js"></script>
     <script src="js/chart-render.js"></script>
 </body>
+
 </html>
