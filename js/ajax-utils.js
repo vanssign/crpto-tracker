@@ -1,54 +1,10 @@
 // get buttons from html/DOM
 const getButton = document.getElementById('getButton');
-const postButton = document.getElementById('postButton');
 
-// define function to get data
+// API configs
 const API_KEY = "d24bddfd51b16745150279d26cf2f1bd50d633f6";
-const current_date = new Date();
-const API_URL = `https://api.nomics.com/v1/exchange-rates/history?key=${API_KEY}&currency=BTC&start=2021-08-19T00%3A00%3A00Z&end=${current_date}`
 
-
-// function ajaxReq(Method, reqUrl, body, headers){
-//     if (Method === "GET") {
-//         var xhr = new XMLHttpRequest();
-//         // open a GET req
-//         xhr.open('GET', reqUrl);
-//         // convert XMLHttpRequest results to 'json' bydefault
-//         xhr.responseType = 'json';
-
-//         xhr.onload = () => {
-//             let results = xhr.response;
-//             console.log('results:', results);
-
-//             //convert string data to json/javascript object - ommit by using xhe.responseType = 'json'
-//             // const jsonData = JSON.parse(results);
-//             // console.log('jsonData:', jsonData);
-//         }
-//         xhr.send();
-//     }
-//     else if (Method === "POST") {
-//         const postData = body;
-
-//         var xhr = new XMLHttpRequest();
-//         // use fake rest api `https://reqres.in/`, below url get list of users
-//         xhr.open('POST', reqUrl);
-
-//         // convert XMLHttpRequest results to 'json' bydefault
-//         // xhr.responseType = 'json';
-//         xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-
-//         xhr.onload = function () {
-//             var results = JSON.parse(xhr.responseText);
-//             console.log(results);
-//         };
-
-//         xhr.send((JSON.stringify(postData)));
-//     }
-//     else {
-//         alert("Error: Request Method not allowed");
-//     }
-// }
-
+//promise based ajax (similar to fetch api)
 ajaxReq = (method, url, data) => {
     return new Promise(function (resolve, reject) {
         let request = new XMLHttpRequest();
@@ -70,12 +26,48 @@ ajaxReq = (method, url, data) => {
     });
 }
 
-fn_getData = () => {
+//APIURL+endpoint based on query
+function setUrl(currency, startDate, endDate) {
+    startDate = startDate.toISOString();
+    endDate = endDate.toISOString();
+    return `https://api.nomics.com/v1/exchange-rates/history?key=${API_KEY}&currency=${currency}&start=${startDate}&end=${endDate}`
+}
+
+//get data
+fn_getData = (currency, duration, endDate) => {
     console.log('getButton clicked - in fn_getData');
-    ajaxReq("GET", API_URL, {}).then((res) => {
-        console.log(res);
+    const startDate = new Date(endDate);
+
+    //duration based endDate generation
+    if (duration == "1D") {
+        startDate.setDate(startDate.getDate() - 1);
+    }
+    else if (duration == "1W") {
+        startDate.setDate(startDate.getDate() - 7);
+    }
+    else if (duration == "1M") {
+        startDate.setMonth(startDate.getMonth() - 1);
+    }
+    else if (duration == "1Y") {
+        startDate.setFullYear(startDate.getFullYear() - 1);
+    }
+    else if (duration == "5Y") {
+        startDate.setFullYear(startDate.getFullYear() - 5);
+    }
+
+    apiUrl = setUrl(currency, startDate, endDate);
+
+    ajaxReq("GET", apiUrl, {}).then((res) => {
+        let yLabels = [];
+        let xLabels = [];
+        for (let i = 0; i < res.length; i++) {
+            yLabels[i] = res[i].rate;
+            xLabels[i] = res[i].timestamp.substring(0,10);
+        }
+        chartUpdate(xLabels, yLabels, currency);
     })
 }
+
 
 // define function to post/send data
 fn_postData = () => {
@@ -85,6 +77,11 @@ fn_postData = () => {
     })
 }
 
+//event listeners
+function getData() {
+    fn_getData(document.getElementById('currencyCode').value,
+        document.getElementById('duration').value, new Date())
+}
+
 // add event listener to button
-getButton.addEventListener('click', fn_getData);
-postButton.addEventListener('click', fn_postData);
+getButton.addEventListener('click', getData);
