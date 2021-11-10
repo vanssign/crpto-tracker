@@ -61,7 +61,7 @@ fn_getData = (currency, duration, endDate) => {
         let yLabels = [];
         let xLabels = [];
         for (let i = 0; i < res.length; i++) {
-            yLabels[i] = parseInt(res[i].rate);
+            yLabels[i] = res[i].rate;
             xLabels[i] = res[i].timestamp.substring(0,10);
         }
         chartUpdate(xLabels, yLabels, currency);
