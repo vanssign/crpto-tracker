@@ -23,6 +23,7 @@ function chartUpdate(xLabels,yLabels,currency){
     myChart.data.datasets[0].data=yLabels;
     myChart.data.labels=xLabels;
     myChart.data.datasets[0].label=currency;
+
     myChart.update();
 }
 
