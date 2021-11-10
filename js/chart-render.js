@@ -5,10 +5,9 @@ const data = {
     datasets: [{
         label: 'BTC',
         data: [],
-        fill: false,
-        backgroundColor: 'rgb(255, 0, 0)',
-        borderColor: 'rgb(75, 192, 192)',
-        color:'rgb(0,0,0)',
+        fill: true,
+        backgroundColor: 'rgba(0, 224, 192,0.2)',
+        borderColor: 'rgba(0, 224, 192,1)',
         tension: 0.1
     }]
 };
