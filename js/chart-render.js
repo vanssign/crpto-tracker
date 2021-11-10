@@ -6,7 +6,9 @@ const data = {
         label: 'BTC',
         data: [],
         fill: false,
+        backgroundColor: 'rgb(255, 0, 0)',
         borderColor: 'rgb(75, 192, 192)',
+        color:'rgb(0,0,0)',
         tension: 0.1
     }]
 };
@@ -14,6 +16,7 @@ const myChart = new Chart(ctx, {
     type: 'line',
     data: data
 });
+
 
 function chartUpdate(xLabels,yLabels,currency){
     myChart.data.datasets[0].data=yLabels;
