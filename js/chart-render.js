@@ -1,6 +1,5 @@
 const ctx = document.getElementById('myChart').getContext('2d');
 
-
 const data = {
     labels: [],
     datasets: [{
@@ -19,6 +18,7 @@ const myChart = new Chart(ctx, {
 function chartUpdate(xLabels,yLabels,currency){
     myChart.data.datasets[0].data=yLabels;
     myChart.data.labels=xLabels;
+    myChart.data.datasets[0].label=currency;
     myChart.update();
 }
 
