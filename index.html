@@ -1,50 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Projects</title>
+    <title>Document</title>
 </head>
-
 <body>
-
-    <div class="container">
-        <div class="selection">
-            <select name="currencyCode" id="currencyCode" class="dropper">
-                <option value="BTC">Bitcoin</option>
-                <option value="ETH">Ethereum</option>
-                <option value="BNB">Binance coin</option>
-                <option value="USDT">Tether</option>
-                <option value="SOL">Solana</option>
-                <option value="USDC">USD coin</option>
-            </select>
-        
-            <select name="duration" id="duration" class="dropper">
-                <option value="1D">1 Day</option>
-                <option value="1W">1 Week</option>
-                <option value="1M">1 Month</option>
-                <option value="1Y">1 Year</option>
-                <option value="5Y">5 years</option>
-            </select>
-    
-        </div>
-    
-        <div class="selection">
-            <button id="getButton">GET</button>
-        </div>
-    
-    </div>
-
-    <div class="myGraph">
-        <canvas id="myChart" width="900" height="300"></canvas>
-    </div>
-
+    <header>
+        <button id="home_nav">Home</button>
+        <button id="about_nav">About</button>
+    </header>
+    <div id="root"></div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/ajax-utils.js"></script>
-    <script src="js/chart-render.js"></script>
+    <script src="js/utils/ajax.js"></script>
+    <script src="js/page-functionalities/home.js"></script>
+    <script src="js/utils/spa.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 </body>
-
 </html>
