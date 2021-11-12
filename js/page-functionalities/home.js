@@ -1,16 +1,13 @@
 function homePageFunctionality() {
-    //select options fom dom
+    //select options from dom
     const currencyCodeSelect = document.getElementById('currencyCode');
     const durationSelect = document.getElementById('duration');
-
-    // API configs
-    const API_KEY = "d24bddfd51b16745150279d26cf2f1bd50d633f6";
 
     //APIURL+endpoint based on query
     function setUrl(currency, startDate, endDate) {
         startDate = startDate.toISOString();
         endDate = endDate.toISOString();
-        return `https://api.nomics.com/v1/exchange-rates/history?key=${API_KEY}&currency=${currency}&start=${startDate}&end=${endDate}`
+        return `${BASE_API_URL}/exchange-rates/history?key=${API_KEY}&currency=${currency}&start=${startDate}&end=${endDate}`
     }
 
     //get data
@@ -59,15 +56,17 @@ function homePageFunctionality() {
 
     //event listeners
     function getData() {
-        fn_getData(document.getElementById('currencyCode').value,
-            document.getElementById('duration').value, new Date())
+        if (document.getElementById('currencyCode').value !== "NA") {
+            fn_getData(document.getElementById('currencyCode').value,
+                document.getElementById('duration').value, new Date())
+        }
     }
-    getData();
 
     // add event listener to select options
     currencyCodeSelect.addEventListener('change', getData);
     durationSelect.addEventListener('change', getData);
 
+    //chart functions and methods
     const ctx = document.getElementById('myChart').getContext('2d');
 
     const data = {

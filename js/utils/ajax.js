@@ -19,4 +19,3 @@ ajaxReq = (method, url, data, responseType) => {
         request.send(data);
     });
 }
-console.log('1');

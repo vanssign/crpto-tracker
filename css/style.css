@@ -3,12 +3,32 @@
 }
 
 body{
-    background-color: #FEF5ED;
+    background-color: #B5DEFF;
 }
 .container{
     margin:auto;
-    width: 50%;
     padding: 10px;
+}
+
+.footcol{
+    background: rgb(205,173,215);
+background: linear-gradient(90deg, rgba(205,173,215,1) 0%, rgba(62,121,9,1) 35%, rgba(8,201,225,1) 100%, rgba(0,212,255,1) 100%);
+    margin-top:100px;
+}
+
+.tagline{
+    background-color: #3D2C8D;
+}
+
+.whitee{
+    color: white;
+}
+
+div img{
+    float: left;
+    width:  100px;
+    height: 100px;
+    object-fit: cover;
 }
 
 .dropper{
@@ -18,19 +38,31 @@ body{
     padding: 10px 10px;
 }
 
+.nav_btn{
+    font-family: cursive;
+    font-size:20px;
+    padding: 10px 10px;
+    border-radius:15px;
+}
+#home_nav{
+    margin-left: 10px;
+}
+
+#about_nav{
+    margin-right: 10px;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #150050;
+    font-family: Arial;
+    margin-top:0;
+  }
+
 .selection{
     text-align:center;
 }
 
 .myGraph{
-    background-color:#FFDEFA;
-}
-
-#getButton{
-    text-align:center;
-    border-radius:15px;
-    margin-top: 20px;
-    font-family: cursive;
-    font-size:20px;
-    padding: 10px 10px;
+    background-color:white;
 }
